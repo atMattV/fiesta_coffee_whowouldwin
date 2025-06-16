@@ -7,7 +7,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
         :root {
@@ -54,39 +53,11 @@
         .nested-header { cursor: pointer; padding: 0.75rem 1rem; font-family: 'Oswald', sans-serif; }
         .nested-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out, padding 0.5s ease-out; padding: 0 1rem; color: var(--text-muted-color); font-size: 0.875rem; line-height: 1.6; }
         .nested-content.expanded { max-height: 1000px; padding: 1rem; padding-top: 0; }
-        #audio-player {
-            background-color: var(--card-bg-color);
-            padding: 0.75rem 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .audio-btn { background: none; border: none; color: var(--text-muted-color); cursor: pointer; transition: color 0.2s; }
-        .audio-btn:hover { color: var(--text-color); }
-        input[type=range] { -webkit-appearance: none; background: transparent; }
-        input[type=range]::-webkit-slider-runnable-track { height: 4px; background: #44403c; border-radius: 2px; }
-        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 16px; width: 16px; border-radius: 50%; background: var(--accent-human); cursor: pointer; margin-top: -6px; }
     </style>
 </head>
 <body class="p-4 sm:p-6 md:p-8">
-
-    <!-- Audio Player -->
-    <div id="audio-player">
-        <button id="play-pause-btn" class="audio-btn"></button>
-        <i data-lucide="volume-1" class="text-gray-500"></i>
-        <input type="range" id="volume-slider" min="-40" max="0" value="-10" class="w-24">
-        <i data-lucide="volume-2" class="text-gray-500"></i>
-    </div>
-
-    <div class="max-w-5xl mx-auto mt-24">
-        <header class="text-center mb-10">
+    <div class="max-w-5xl mx-auto">
+        <header class="text-center my-10">
             <h1 class="text-4xl sm:text-6xl font-bold text-white mb-2">Who Would Win?</h1>
             <p class="text-xl text-gray-400 font-sans tracking-wide normal-case">One Gorilla, Hundred Men. Only One Possible Winner.</p>
         </header>
@@ -121,8 +92,8 @@
                             <div class="profile-stat-card"><h4 class="font-semibold text-sm mb-2">DURABILITY</h4><div class="radial-progress" data-value="85"></div><p class="text-xs text-gray-400">Robust Skeleton</p></div>
                             <div class="profile-stat-card"><h4 class="font-semibold text-sm mb-2">SPEED</h4><div class="radial-progress" data-value="75"></div><p class="text-xs text-gray-400">~40 km/h Sprint</p></div>
                         </div>
-                        <div class="nested-collapsible"><div class="nested-header" onclick="toggleNested(event)">Physical Prowess +</div><div class="nested-content"><p>Lifting capacity up to 815 kg. Punching force of 1,000-1,200 lbf, capable of catastrophic damage. Capable of short sprints up to 40 km/h and are efficient climbers. Predominantly fast-twitch muscle for explosive power, not prolonged endurance.</p></div></div>
-                        <div class="nested-collapsible"><div class="nested-header" onclick="toggleNested(event)">Natural Weaponry +</div><div class="nested-content"><p>Primary weapons are immense strength for tearing/bludgeoning and a powerful bite (~1,300 PSI). In combat, they use powerful charges and direct physical assault. 99% of charges are bluffs in normal circumstances, but in a life-or-death fight, all attacks are committed.</p></div></div>
+                        <div class="nested-collapsible"><div class="nested-header" onclick="toggleNested(this)">Physical Prowess +</div><div class="nested-content"><p>Lifting capacity up to 815 kg. Punching force of 1,000-1,200 lbf, capable of catastrophic damage. Capable of short sprints up to 40 km/h and are efficient climbers. Predominantly fast-twitch muscle for explosive power, not prolonged endurance.</p></div></div>
+                        <div class="nested-collapsible"><div class="nested-header" onclick="toggleNested(this)">Natural Weaponry +</div><div class="nested-content"><p>Primary weapons are immense strength for tearing/bludgeoning and a powerful bite (~1,300 PSI). In combat, they use powerful charges and direct physical assault. 99% of charges are bluffs in normal circumstances, but in a life-or-death fight, all attacks are committed.</p></div></div>
                     </div>
                     <!-- Human Profile -->
                     <div class="space-y-4">
@@ -133,8 +104,8 @@
                             <div class="profile-stat-card"><h4 class="font-semibold text-sm mb-2">DURABILITY</h4><div class="radial-progress" data-value="15" data-color="var(--accent-human)"></div><p class="text-xs text-gray-400">Biologically Fragile</p></div>
                             <div class="profile-stat-card"><h4 class="font-semibold text-sm mb-2">ADVANTAGE</h4><div class="radial-progress" data-value="80" data-color="var(--accent-human)"></div><p class="text-xs text-gray-400">Endurance</p></div>
                         </div>
-                        <div class="nested-collapsible"><div class="nested-header" onclick="toggleNested(event)">Physicality & Psychology +</div><div class="nested-content"><p>Individually outmatched in every metric. Success relies on coordinated numbers, not individual power. Biologically fragile. A key advantage is superior endurance for prolonged fights. The psychological state is the paramount determinant: fear leads to disarray, while bloodlust or extreme resolve could enable a unified swarm attack.</p></div></div>
-                        <div class="nested-collapsible"><div class="nested-header" onclick="toggleNested(event)">Unarmed Disadvantage +</div><div class="nested-content"><p>Humans' evolutionary success is tied to tools. Unarmed, their offensive capability is limited to blunt force and high-risk grappling. This necessitates swarm tactics where individuals must accept catastrophic risk to create openings for the group. Victory is predicated on overwhelming the gorilla with sheer mass.</p></div></div>
+                        <div class="nested-collapsible"><div class="nested-header" onclick="toggleNested(this)">Physicality & Psychology +</div><div class="nested-content"><p>Individually outmatched in every metric. Success relies on coordinated numbers, not individual power. Biologically fragile. A key advantage is superior endurance for prolonged fights. The psychological state is the paramount determinant: fear leads to disarray, while bloodlust or extreme resolve could enable a unified swarm attack.</p></div></div>
+                        <div class="nested-collapsible"><div class="nested-header" onclick="toggleNested(this)">Unarmed Disadvantage +</div><div class="nested-content"><p>Humans' evolutionary success is tied to tools. Unarmed, their offensive capability is limited to blunt force and high-risk grappling. This necessitates swarm tactics where individuals must accept catastrophic risk to create openings for the group. Victory is predicated on overwhelming the gorilla with sheer mass.</p></div></div>
                     </div>
                 </div>
             </div>
@@ -153,7 +124,7 @@
                             <h4 class="font-bold text-lg mb-2">Open Plain</h4>
                             <p class="text-xs text-gray-300 mb-2"><strong><span style="color: var(--accent-human);">Favors Humans</span> (if coordinated):</strong> Allows for encirclement.</p>
                         </div> 
-                        <div class="nested-collapsible mt-0 relative z-10"><div class="nested-header" onclick="toggleNested(event)">Details +</div><div class="nested-content"><p><strong>Gorilla's Play:</strong> Can use full charging speed. However, it is vulnerable to being surrounded with no cover to retreat to.<br><strong>Humans' Play:</strong> Swarm tactics are most effective here. Clear lines of sight facilitate coordination. However, individuals are highly exposed.</p></div></div>
+                        <div class="nested-collapsible mt-0 relative z-10"><div class="nested-header" onclick="toggleNested(this)">Details +</div><div class="nested-content"><p><strong>Gorilla's Play:</strong> Can use full charging speed. However, it is vulnerable to being surrounded with no cover to retreat to.<br><strong>Humans' Play:</strong> Swarm tactics are most effective here. Clear lines of sight facilitate coordination. However, individuals are highly exposed.</p></div></div>
                     </div>
                     <!-- Dense Forest -->
                     <div class="p-4 rounded-lg env-card border border-gray-700 flex flex-col justify-between min-h-[14rem]" style="background-image: url(https://images.unsplash.com/photo-1543166332-a5354e3a479b?q=80&w=1974&auto=format&fit=crop);">
@@ -161,7 +132,7 @@
                             <h4 class="font-bold text-lg mb-2">Dense Forest</h4>
                             <p class="text-xs text-gray-300 mb-2"><strong><span style="color: var(--accent-gorilla);">Favors Gorilla:</span></strong> Utilizes ambush and cover.</p>
                         </div>
-                        <div class="nested-collapsible mt-0 relative z-10"><div class="nested-header" onclick="toggleNested(event)">Details +</div><div class="nested-content"><p><strong>Gorilla's Play:</strong> Uses climbing and cover to break up formations and launch surprise attacks. Can negate human numbers by forcing smaller, sequential fights.<br><strong>Humans' Play:</strong> Coordination breaks down. High risk of ambush. Numerical advantage is largely nullified.</p></div></div>
+                        <div class="nested-collapsible mt-0 relative z-10"><div class="nested-header" onclick="toggleNested(this)">Details +</div><div class="nested-content"><p><strong>Gorilla's Play:</strong> Uses climbing and cover to break up formations and launch surprise attacks. Can negate human numbers by forcing smaller, sequential fights.<br><strong>Humans' Play:</strong> Coordination breaks down. High risk of ambush. Numerical advantage is largely nullified.</p></div></div>
                     </div>
                     <!-- Confined Arena -->
                     <div class="p-4 rounded-lg env-card border border-gray-700 flex flex-col justify-between min-h-[14rem]" style="background-image: url(https://images.unsplash.com/photo-1593994399952-32087965a6f3?q=80&w=1931&auto=format&fit=crop);">
@@ -169,7 +140,7 @@
                             <h4 class="font-bold text-lg mb-2">Confined Arena</h4>
                             <p class="text-xs text-gray-300 mb-2"><strong><span style="color: var(--accent-mixed);">Forces Confrontation:</span></strong> A brutal battle of attrition.</p>
                         </div>
-                        <div class="nested-collapsible mt-0 relative z-10"><div class="nested-header" onclick="toggleNested(event)">Details +</div><div class="nested-content"><p><strong>Gorilla's Play:</strong> No retreat. May become hyper-aggressive when cornered. Cannot use mobility to escape the swarm.<br><strong>Humans' Play:</strong> Encirclement is inevitable. The inability to flee may heighten resolve or induce panic. A pure test of numbers vs. power.</p></div></div>
+                        <div class="nested-collapsible mt-0 relative z-10"><div class="nested-header" onclick="toggleNested(this)">Details +</div><div class="nested-content"><p><strong>Gorilla's Play:</strong> No retreat. May become hyper-aggressive when cornered. Cannot use mobility to escape the swarm.<br><strong>Humans' Play:</strong> Encirclement is inevitable. The inability to flee may heighten resolve or induce panic. A pure test of numbers vs. power.</p></div></div>
                     </div>
                 </div>
             </div>
